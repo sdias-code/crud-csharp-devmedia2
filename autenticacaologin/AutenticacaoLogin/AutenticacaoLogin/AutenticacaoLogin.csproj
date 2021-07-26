@@ -152,6 +152,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\Hash.cs" />
     <Compile Include="ViewModels\CadastroUsuarioViewModels.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -190,6 +191,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Autenticacao\Cadastrar.cshtml" />
+    <Content Include="Views\Autenticacao\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

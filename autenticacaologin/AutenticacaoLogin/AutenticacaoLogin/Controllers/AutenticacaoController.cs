@@ -43,5 +43,17 @@ namespace AutenticacaoLogin.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Login(string ReturnUrl)
+        {
+            var viewmodel = new LoginViewModel
+            {
+                UrlRetorno = ReturnUrl
+            };
+
+            return View(viewmodel);
+        }
     }
+
+    
 }
