@@ -1,0 +1,10 @@
+https://www.devmedia.com.br/exemplo/autenticacao-no-asp-net-mvc/60?parte=8
+
+cadastro de usuários, 
+login, 
+logout 
+e alteração de senha
+
+Com o projeto criado, podemos instalar o Entity Framework, que será a solução de acesso a bancos de dados utilizada nesta aplicação. Para isso, abra a interface de gerenciamento de pacotes do NuGet clicando com o botão direito em References no Solution Explorer e depois em Manage NuGet Packages. Em seguida, na aba Browse procure por EntityFramework e instale sua versão 6.2.0.
+
+Seguindo o mesmo procedimento localize e instale também os pacotes Microsoft.OWIN.Host.SystemWeb e Microsoft.OWIN.Security.Cookies. O primeiro habilita o uso do OWIN em aplicações ASP.NET que rodam no IIS. O segundo é o midleware do OWIN que, sendo integrado ao fluxo das requisições do ASP.NET, permite usar autenticação baseada em cookies.
