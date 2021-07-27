@@ -14,5 +14,11 @@ namespace AutenticacaoLogin.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Mensagens()
+        {
+            return View();
+        }
     }
 }

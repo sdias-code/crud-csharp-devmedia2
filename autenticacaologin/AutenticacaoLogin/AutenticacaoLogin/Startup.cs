@@ -3,6 +3,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 
 [assembly: OwinStartup(typeof(AutenticacaoLogin.Startup))]
 
@@ -18,6 +19,8 @@ namespace AutenticacaoLogin
                 AuthenticationType = "ApplicationCookie",
                 LoginPath = new PathString("/Autenticacao/Login")
             });
+
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = "Login";
         }
     }
 }

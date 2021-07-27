@@ -42,7 +42,9 @@ namespace AutenticacaoLogin.Controllers
             db.Usuarios.Add(novoUsuario);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            TempData["Mensagem"] = "Cadastro realizado com sucesso. Efetue login.";
+
+            return RedirectToAction("Login");
         }
 
         public ActionResult Login(string ReturnUrl)
@@ -90,6 +92,12 @@ namespace AutenticacaoLogin.Controllers
             else
                 return RedirectToAction("Index", "Painel");
 
+        }
+
+        public ActionResult Logout()
+        {
+            Request.GetOwinContext().Authentication.SignOut("ApplicationCookie");
+            return RedirectToAction("Index", "Home");
         }
 
 
