@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutenticacaoLogin.Utils;
+using System.Security.Claims;
 
 namespace AutenticacaoLogin.Controllers
 {
@@ -16,7 +17,7 @@ namespace AutenticacaoLogin.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Cadastrar(CadastroUsuarioViewModels viewmodel)
         {
@@ -26,7 +27,7 @@ namespace AutenticacaoLogin.Controllers
             }
 
             if (db.Usuarios.Count(u => u.Login == viewmodel.Login) > 0)
-{
+            {
                 ModelState.AddModelError("Login", "Esse login já está em uso");
                 return View(viewmodel);
             }
@@ -53,7 +54,44 @@ namespace AutenticacaoLogin.Controllers
 
             return View(viewmodel);
         }
-    }
 
-    
+        [HttpPost]
+        public ActionResult Login(LoginViewModel viewmodel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewmodel);
+            }
+
+            var usuario = db.Usuarios.FirstOrDefault(u => u.Login == viewmodel.Login);
+
+            if (usuario == null)
+            {
+                ModelState.AddModelError("Login", "Login incorreto");
+                return View(viewmodel);
+            }
+
+            if (usuario.Senha != Hash.GerarHash(viewmodel.Senha))
+            {
+                ModelState.AddModelError("Senha", "Senha incorreta");
+                return View(viewmodel);
+            }
+
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, usuario.Nome),
+                new Claim("Login", usuario.Login)
+                }, "ApplicationCookie");
+
+            Request.GetOwinContext().Authentication.SignIn(identity);
+
+            if (!String.IsNullOrWhiteSpace(viewmodel.UrlRetorno) || Url.IsLocalUrl(viewmodel.UrlRetorno))
+                return Redirect(viewmodel.UrlRetorno);
+            else
+                return RedirectToAction("Index", "Painel");
+
+        }
+
+
+    }
 }
